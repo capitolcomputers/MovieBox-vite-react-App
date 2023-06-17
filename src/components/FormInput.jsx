@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 
-function FormInput({ fetchMovies }) {
-  const [searchTerm, setSearchTerm] = useState('');
+function FormInput({ searchTerm, setSearchTerm, handleFormSubmit }) {
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
-    console.log(e.target.value);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    fetchMovies(searchTerm);
   };
 
   return (
@@ -21,7 +14,7 @@ function FormInput({ fetchMovies }) {
         onChange={handleInputChange}
         placeholder='Enter a movie title...'
       />
-      <button className='bbtn' type='submit' onClick={handleFormSubmit}>
+      <button className='bbtn' type='submit'>
         Search
       </button>
     </form>

@@ -5,21 +5,26 @@ import Movies from '../src/components/Movies';
 import FormInput from './components/FormInput';
 import Footer from './components/Footer';
 
-const API_ENDPOINT = `https://www.omdbapi.com/?apikey=${
-  import.meta.env.VITE_REACT_APP_MOVIE_API_KEY
-  }`;
-console.log(API_ENDPOINT);
+const API_KEY =  import.meta.env.VITE_REACT_APP_MOVIE_API_KEY
+
+const API_ENDPOINT = 'https://www.omdbapi.com'
 
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true)
   const [renderedError, setRenderedError] = useState('');
+    const [searchTerm, setSearchTerm] = useState('love');
+
   
-  const fetchMovies = async (url) => {
+  const fetchMovies = async (query) => {
     try {
-      const response = await fetch(url);
+      const response = await fetch(
+        `${API_ENDPOINT}?apikey=${API_KEY}&s=${query}`
+      );
       const data = await response.json();
-      console.log(data);
+      console.log(data)
+      setData(data)
+
       setLoading(false);
       if (data.Response === 'False') {
         setRenderedError(data.Response);
@@ -32,11 +37,15 @@ function App() {
 
   useEffect(() => {
     // Default movie title
-    const searchTerm = 'love';
+    // const searchTerm = 'love';
+    fetchMovies(searchTerm);
+  }, []);
 
-    const url = `${API_ENDPOINT}&s=${searchTerm}`;
-    fetchMovies(url);
-  },[ fetchMovies]);
+   const handleFormSubmit = (e) => {
+     e.preventDefault();
+     fetchMovies(searchTerm);
+   };
+
  
   if(loading) {
     return (
@@ -46,18 +55,27 @@ function App() {
   }
   return (
     <>
-      <header className="header_container">
-        <div className="logo__brand">
-          <h2>PRIME {} <span className='brand__name'>MOVIE</span></h2>
+      <header className='header_container'>
+        <div className='logo__brand'>
+          <h2>
+            PRIME {} <span className='brand__name'>MOVIE</span>
+          </h2>
         </div>
-      <FormInput fetchMovies={fetchMovies} />
+
+        <FormInput
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          handleFormSubmit={handleFormSubmit}
+        />
       </header>
+      <section className='movies__section'>
       {/* conditional rendering from the async */}
-      {data && data.Response === 'True' ? (
-        <Movies data={data.Search} />
-      ) : (
-        <p className='error__result'>{renderedError} </p>
-      )}
+      {data.Response === 'True' ? (
+        <Movies data={data} />
+        ) : (
+          <p className='error__result'>{renderedError} </p>
+          )}
+          </section>
       {/* Footer for the page */}
       <Footer />
     </>
