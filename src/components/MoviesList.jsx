@@ -33,6 +33,8 @@ function MoviesList({ idInfo }) {
       <p>{year}</p>
       <p>{rated}</p>
       <p>{actors}</p>
+
+      {/* Wondering how i can make this info show on individual button that was clicked and not all info showing when a btn is clicked */}
     </section>
   );
 }

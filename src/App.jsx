@@ -13,7 +13,7 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true)
   const [renderedError, setRenderedError] = useState('');
-    const [searchTerm, setSearchTerm] = useState('love');
+    const [searchTerm, setSearchTerm] = useState('fun');
 
   
   const fetchMovies = async (query) => {
@@ -76,7 +76,7 @@ function App() {
         ) : (
           <div className='loading__box'>
             <div className='loading'></div>
-            <p className='not_fetching'>Unable to fetch</p>
+            <p className='loading_text'>Loading...</p>
             <p>{renderedError}</p>
           </div>
         )}
