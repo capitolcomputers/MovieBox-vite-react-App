@@ -12,6 +12,7 @@ function FormInput({ searchTerm, setSearchTerm, handleFormSubmit }) {
         type='text'
         value={searchTerm}
         onChange={handleInputChange}
+        id='input'
         placeholder='Enter a movie title...'
       />
       <button className='bbtn' type='submit'>

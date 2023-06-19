@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import MoviesInfo from './MoviesInfo';
+import MoviesList from './MoviesList';
 
 function Movies({ data }) {
-  const {Search: movies} = data
+  const { Search: movies } = data;
+  const [isMoreInfoVisible, setMoreInfoVisible] = useState(false);
+
   return (
     <div className='movie__parent_element'>
       {movies.map((movie, index) => (
         <div key={index} className='each_movie_info'>
-          <div>
+          <div className='eachmovie__box'>
             <img src={movie.Poster} alt='movie.Title' className='movie_img' />
+            <button
+              className='moviebutton'
+              onClick={() => setMoreInfoVisible(true)}
+            >
+              {' '}
+              View More
+            </button>
+            {isMoreInfoVisible && <MoviesList idInfo={movie.imdbID} />}
           </div>
-          <h2 className='titles'> Movie Title:{movie.Title}</h2>
-          
-          <p className='date'>Release Date:{movie.Year}</p>
-          <button className='moviebutton'> View More</button>
+          <div></div>
         </div>
       ))}
     </div>

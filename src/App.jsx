@@ -47,18 +47,19 @@ function App() {
    };
 
  
-  if(loading) {
-    return (
-      <div className="loading">
-      </div>
-    )
-  }
+  // if(loading) {
+  //   return (
+  //     <div className="loading">
+  //     </div>
+  //   )
+  // }
+
   return (
     <>
       <header className='header_container'>
         <div className='logo__brand'>
-          <h2>
-            PRIME {} <span className='brand__name'>MOVIE</span>
+          <h2 className='brand__name'>
+            MOVIE {} <span className='brand__name-alt'>BOX</span>
           </h2>
         </div>
 
@@ -69,13 +70,17 @@ function App() {
         />
       </header>
       <section className='movies__section'>
-      {/* conditional rendering from the async */}
-      {data.Response === 'True' ? (
-        <Movies data={data} />
+        {/* conditional rendering from the async */}
+        {data.Response === 'True' ? (
+          <Movies data={data} />
         ) : (
-          <p className='error__result'>{renderedError} </p>
-          )}
-          </section>
+          <div className='loading__box'>
+            <div className='loading'></div>
+            <p className='not_fetching'>Unable to fetch</p>
+            <p>{renderedError}</p>
+          </div>
+        )}
+      </section>
       {/* Footer for the page */}
       <Footer />
     </>
