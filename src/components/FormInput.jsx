@@ -5,7 +5,6 @@ function FormInput({ searchTerm, setSearchTerm, handleFormSubmit }) {
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   };
-
   return (
     <form onSubmit={handleFormSubmit} className='form-form'>
       <input
@@ -18,5 +17,4 @@ function FormInput({ searchTerm, setSearchTerm, handleFormSubmit }) {
     </form>
   );
 }
-
 export default FormInput;
