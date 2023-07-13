@@ -1,31 +1,49 @@
 import React, { useState } from 'react';
 import MoviesInfo from './MoviesInfo';
-import MoviesList from './MoviesList';
 
 function Movies({ data }) {
-  const { Search: movies } = data;
-  const [isMoreInfoVisible, setMoreInfoVisible] = useState(false);
 
+  const { Search: movies } = data;
+  
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleViewMore = (movieId) => {
+    setSelectedMovieId(movieId);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedMovieId(null);
+    setShowModal(false);
+  };
 
   return (
     <div className='movie__parent_element'>
-      {movies.map((movie, index) => (
-        <div key={index} className='each_movie_info'>
-          <div className='eachmovie__box'>
-            <img src={movie.Poster} alt='movie.Title' className='movie_img' />
+      {movies.map((movie) => (
+        <div
+          key={movie.imdbID}
+          className={showModal ? 'each_movie_info filter' : 'each_movie_info'}
+        >
+          {/* <div className='eachmovie__box'> */}
+            <img src={movie.Poster} alt={movie.Title} className='movie_img' />
+            <button
+              className='moviebutton__close'
+              onClick={() => handleViewMore(movie.imdbID)}
+            >
+              View More
+            </button>
           </div>
-          <button
-            key={movie.imdbID}
-            className='moviebutton'
-            onClick={() => setMoreInfoVisible(true)}
-          >
-            {' '}
-            View More
-          </button>
-          {isMoreInfoVisible && <MoviesList idInfo={movie.imdbID} />}
-        </div>
+        // </div>
       ))}
-      {/* Wondering how i can make the info on each id, i.e the individual button that was clicked as per its key information and not all info showing when a btn is clicked. but rather the info of the PARTICULAR clicked btn */}
+
+      {showModal && selectedMovieId && (
+        <div className='modal__container'>
+          <div className='modal__backdrop'>
+            <MoviesInfo movieId={selectedMovieId} onClick={closeModal} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

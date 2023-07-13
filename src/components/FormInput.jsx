@@ -15,9 +15,6 @@ function FormInput({ searchTerm, setSearchTerm, handleFormSubmit }) {
         id='input'
         placeholder='Enter a movie title...'
       />
-      <button className='bbtn' type='submit'>
-        Search
-      </button>
     </form>
   );
 }
