@@ -15,6 +15,8 @@ function FormInput({ searchTerm, setSearchTerm, handleFormSubmit }) {
         placeholder='Enter a movie title...'
       />
     </form>
+
+    
   );
 }
 export default FormInput;
