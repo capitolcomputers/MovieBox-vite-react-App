@@ -46,14 +46,6 @@ function App() {
      fetchMovies(searchTerm);
    };
 
- 
-  // if(loading) {
-  //   return (
-  //     <div className="loading">
-  //     </div>
-  //   )
-  // }
-
   return (
     <>
       <header className='header_container'>
